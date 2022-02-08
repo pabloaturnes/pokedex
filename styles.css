@@ -224,6 +224,11 @@ html{
     border-radius: 50%;
     position: relative;
     border: 1px solid black;
+    animation-name: rotation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function:linear;
+    
 }
 
 .eye-center{
@@ -262,7 +267,16 @@ html{
     height: 1.5rem;
     border-radius: 50%;
     background-color: rgb(155, 18, 18);
-    border: 1px solid black
+    border: 1px solid black;
+    animation-name: red-light;
+    animation-duration: 1.5s;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    
+    
+    
+    
+    
 }
 
 .yellow-circle{
@@ -271,6 +285,13 @@ html{
     border-radius: 50%;
     background-color:rgb(202, 202, 11);
     border: 1px solid black;
+    animation-name: yellow-light;
+    animation-duration: 1.5s;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    
+    
+    
 }
 
 .green-circle{
@@ -279,6 +300,12 @@ html{
     border-radius: 50%;
     background-color:rgb(5, 99, 5);
     border: 1px solid black;
+    animation-name: green-light;
+    animation-duration: 1.5s;
+    animation-timing-function:linear;
+    animation-iteration-count: infinite;
+    
+    
 }
 
 
@@ -316,6 +343,27 @@ html{
     border-radius: 50%;
     background-color: rgb(155, 18, 18);
     border: 1px solid black;
+}
+
+.little-light-1{
+    animation-name: red-little-light1;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.little-light-2{
+    animation-name: red-little-light2;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.big-light{
+    animation-name: big-light;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 .screen{
@@ -584,3 +632,111 @@ html{
 
 }
 
+
+
+
+
+/*Animations */
+
+@keyframes rotation{
+
+    from{
+        transform: rotate(0deg);
+    }
+
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes red-light{
+
+    0%{
+        background-color: rgb(155, 18, 18);
+    }
+
+    33%{
+        background-color: rgb(255, 0, 0);
+    }
+
+    100%{
+        
+    }
+}
+
+@keyframes yellow-light{
+
+
+    33%{
+        background-color:rgb(181, 181, 8);
+    }
+
+    66%{
+        background-color:rgb(255, 255, 0)
+    }
+
+}
+
+@keyframes green-light{
+
+
+
+    66%{
+        background-color:rgb(5, 82, 5);
+        
+    }
+
+    99%{
+        background-color:rgb(3, 248, 3);
+    }
+
+}
+
+
+
+@keyframes red-little-light1{
+
+
+
+    0%{
+        background-color: rgb(155, 18, 18);
+        
+    }
+
+    50%{
+        background-color: rgb(255, 0, 0);
+    }
+
+}
+
+@keyframes red-little-light2{
+
+    50%{
+        background-color: rgb(155, 18, 18);
+        
+    }
+
+    100%{
+        background-color: rgb(255, 0, 0);
+    }
+
+}
+
+@keyframes big-light{
+
+    0%{
+        background-color: rgb(155, 18, 18);
+        
+    }
+
+    50%{
+        background-color: rgb(255, 0, 0);
+    }
+
+    100%{
+        background-color: rgb(155, 18, 18);
+        
+    }
+
+}

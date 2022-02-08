@@ -270,14 +270,14 @@ async function pokedex (url){
         <div class="pokedex-body">
             <div class="img-outer-screen">
                 <div class="top">
-                    <div class="red-button"></div>
-                    <div class="red-button"></div>
+                    <div class="red-button little-light-1"></div>
+                    <div class="red-button little-light-2"></div>
                 </div>
 
                 <div class="screen"></div>
 
                 <div class="bottom">
-                    <div class="red-button"></div>
+                    <div class="red-button big-light"></div>
                     <i class="bi bi-list"></i>
                 </div>
             </div>
@@ -557,3 +557,9 @@ async function busquedaPokemonPokedex(url){
     }
 
 }
+
+
+
+//poner en minusculas los inputs de los formularios
+//poner las luces
+//ver si se pueden encontrar coincidencias en la querystring
