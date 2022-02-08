@@ -4,9 +4,7 @@ $pokemonCard = document.querySelector(".pokemon-card"),
 $linkNext = document.querySelector(".link-next"),
 $linkPrevious = document.querySelector(".link-previous"),
 $searchForm = document.querySelector(".header-form"),
-$submitButton = document.querySelector("submit-button"),
 $fragment = document.createDocumentFragment();
-
 
 
 
@@ -74,8 +72,6 @@ async function listarPokemons (url){
         }
        
         
-        console.log($linkNext)
-        console.log($linkPrevious)
         
     } catch (error) {
         console.log(`ocurrio un error: ${error.status}, ${error.statusText}`);
@@ -83,8 +79,72 @@ async function listarPokemons (url){
 
 }
 
+async function busquedaPokemon(url){
+
+
+    try {
+        let $template = "";
+        let resultado = await fetch(url);
+        let pokemon = await resultado.json();
+
+        if(!resultado.ok) throw {status: resultado.status, statusText: resultado.statusText}
+
+        console.log(pokemon)
+
+        $template += `
+            
+                <figure>
+                    <a class="pokemon-link" href="${url}">
+                        <img src="${pokemon.sprites.front_default}">
+                    </a>
+                    <div class="list-card-footer">
+                        <figcaption>${pokemon.name}</figcaption>
+                        <figcaption> N° ${pokemon.id}</figcaption>
+                    </div>
+                </figure>
+           
+        `;
+
+        $list.innerHTML = $template;
+
+
+            $linkPrevious.href ="https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
+
+
+   
+            $linkNext.href ="https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
+        
+
+        
+    } catch (error) {
+        
+        $list.innerHTML = ` <div class="not-found">
+                                <p>El pokemon no ha sido encontrado</p>
+                            </div>`;
+
+    }
+
+}
+
 
 document.addEventListener("DOMContentLoaded", listarPokemons("https://pokeapi.co/api/v2/pokemon/"));
+
+
+
+document.addEventListener("submit", (event)=>{
+
+    event.preventDefault();
+
+if(event.target.matches(".header-form") && $searchForm.find.value != ""){
+    
+    console.log($searchForm.find.value)
+    busquedaPokemon(`https://pokeapi.co/api/v2/pokemon/${$searchForm.find.value}`)
+
+}
+
+})
+
+
 
 document.addEventListener("click", (event)=> {
     
@@ -121,6 +181,8 @@ document.addEventListener("click", (event)=> {
   
    }
 
+   // si se busca un pokemon en el buscador
+
     // si se clickean el enlace para ver la pokedex
     if(event.target.matches(".pokedex-link")){
 
@@ -145,12 +207,10 @@ document.addEventListener("click", (event)=> {
 
 
 
+
 async function pokedex (url){
 
     try {
-
-
-
 
         $body.innerHTML = `
         <div class="pokedex">
