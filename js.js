@@ -202,6 +202,33 @@ document.addEventListener("click", (event)=> {
 
     }
 
+    //si se clickean los botones de izquierda y derecha del joistick
+    if(event.target.matches(".joistick-left *") || event.target.matches(".joistick-right *") || event.target.matches(".joistick-right ") || event.target.matches(".joistick-left")){
+        event.preventDefault();
+
+        if(event.target.tagName = "I"){
+            pokedex(event.target.closest("a").getAttribute("href"))
+        }else{
+            pokedex(event.target.getAttribute("href"))
+        }
+
+    }
+
+    //si se clickean los botones arriba y abajo del joistick;
+    if(event.target.matches(".joistick-down") || event.target.matches(".joistick-down *")){
+
+        let $pokedexTextScreenContent = document.querySelector(".screen-text-content");
+        let porcentaje = ($pokedexTextScreenContent.scrollHeight * 10) / 100;
+        $pokedexTextScreenContent.scrollTop = $pokedexTextScreenContent.scrollTop + porcentaje
+    }
+
+    if(event.target.matches(".joistick-up") ||event.target.matches(".joistick-up *")){
+        let $pokedexTextScreenContent = document.querySelector(".screen-text-content");
+        let porcentaje = ($pokedexTextScreenContent.scrollHeight * 10) / 100;
+        $pokedexTextScreenContent.scrollTop = $pokedexTextScreenContent.scrollTop - porcentaje
+    }
+    
+
 })
 
 
@@ -252,14 +279,14 @@ async function pokedex (url){
                 <div class="green-screen"></div>
                 <div class="joistick">
                     <div class="left">
-                        <a href=""><i class="bi bi-arrow-left-short"></i></a>    
+                        <a class="joistick-left" href=""><i class="bi bi-arrow-left-short"></i></a>    
                     </div>
                     <div class="middle">
-                        <a href=""><i class="bi bi-arrow-up-short"></i></a> 
-                        <a href=""><i class="bi bi-arrow-down-short"></i></a>
+                        <a class="joistick-up" ><i class="bi bi-arrow-up-short"></i></a> 
+                        <a class="joistick-down"><i class="bi bi-arrow-down-short"></i></a>
                     </div>
                     <div class="right">
-                        <a href=""><i class="bi bi-arrow-right-short"></i></a>  
+                        <a class="joistick-right" href=""><i class="bi bi-arrow-right-short"></i></a>  
                     </div>
 
                 </div>
@@ -281,6 +308,10 @@ async function pokedex (url){
         $pokedexLinkNext = document.querySelector(".pokedex-next"),
         $pokedexScreen.innerHTML=`<img class="pokedex-loader" src="loader.svg" alt="Cargando...">`;
         $pokedexTextScreen.innerHTML=`<img class="pokedex-loader" src="loader.svg" alt="Cargando...">`;
+        $joistickLeft = document.querySelector(".joistick-left");
+        $joistickRight = document.querySelector(".joistick-right");
+
+
 
         let $statsTemplate = "",
         $tipesTemplate= "",
@@ -362,15 +393,19 @@ async function pokedex (url){
 
 
         if(pokemon.id == 1){
-            $pokedexLinkPrevious.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`
+            $pokedexLinkPrevious.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
+            $joistickLeft.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
         }else{
-            $pokedexLinkPrevious.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id - 1}`
+            $pokedexLinkPrevious.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id - 1}`;
+            $joistickLeft.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id - 1}`;
         }
 
         if(pokemon.id == 1098){
-            $pokedexLinkNext.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`
+            $pokedexLinkNext.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
+            $joistickRight.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
         }else{
-            $pokedexLinkNext.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id + 1}`
+            $pokedexLinkNext.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id + 1}`;
+            $joistickRight.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id + 1}`;
         }
 
         
