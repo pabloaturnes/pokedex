@@ -7,9 +7,119 @@ $searchForm = document.querySelector(".header-form"),
 $fragment = document.createDocumentFragment();
 
 
+document.addEventListener("DOMContentLoaded", listarPokemons("https://pokeapi.co/api/v2/pokemon/"));
+
+
+    //listeners del evento submit
+document.addEventListener("submit", (event)=>{
+
+    event.preventDefault();
+
+if(event.target.matches(".header-form") && $searchForm.find.value != ""){
+    
+    console.log($searchForm.find.value)
+    busquedaPokemon(`https://pokeapi.co/api/v2/pokemon/${$searchForm.find.value}`)
+
+}
+
+if(event.target.matches(".pokedex-form") && document.querySelector(".pokedex-form").find.value != ""){
+    let $pokedexForm = document.querySelector(".pokedex-form");
+    
+    busquedaPokemonPokedex(`https://pokeapi.co/api/v2/pokemon/${$pokedexForm.find.value}`)
+
+}
+
+
+})
+
+   // listeners del evento click
+document.addEventListener("click", (event)=> {
+    
+
+    // si se clickea la imagen de un pokemon de la lista
+   if(event.target.matches(".pokemon-link img") || event.target.matches(".pokemon-link")){
+
+       event.preventDefault();   
+
+       let figure = event.target.closest("figure");  
+       let url = figure.querySelector(".pokemon-link").getAttribute("href");
+       let imgUrl = figure.querySelector("img").getAttribute("src");
+       let name = figure.querySelector(".list-card-footer").firstElementChild.textContent;
+       let id = figure.querySelector(".list-card-footer").lastElementChild.textContent;
+
+       let $template = `
+
+       <h2>${name}</h2>
+       <img src="${imgUrl}">
+       <a class="pokedex-link" href="${url}">Ver Pokedex</a>
+       `;
+
+       $pokemonCard.innerHTML = $template;
+
+   }
+
+
+   // si se clickea los botones de prev y next de la lista de pokemons
+   if(event.target.matches(".link-previous") || event.target.matches(".link-next") ){
+
+       event.preventDefault();   
+  
+       listarPokemons(event.target.getAttribute("href"))
+  
+   }
+
+   // si se busca un pokemon en el buscador
+
+    // si se clickean el enlace para ver la pokedex
+    if(event.target.matches(".pokedex-link")){
+
+        event.preventDefault();
+
+        pokedex(event.target.getAttribute("href"))
+
+    }
+
+    // si se clickean los enlaces para ver los siguientes pokemon de la pokedex
+    if(event.target.matches(".pokedex-previous") || event.target.matches(".pokedex-next") ){
+
+        event.preventDefault();
+
+        pokedex(event.target.getAttribute("href"))
+
+    }
+
+    //si se clickean los botones de izquierda y derecha del joistick
+    if(event.target.matches(".joistick-left *") || event.target.matches(".joistick-right *") || event.target.matches(".joistick-right ") || event.target.matches(".joistick-left")){
+        event.preventDefault();
+
+        if(event.target.tagName = "I"){
+            pokedex(event.target.closest("a").getAttribute("href"))
+        }else{
+            pokedex(event.target.getAttribute("href"))
+        }
+
+    }
+
+    //si se clickean los botones arriba y abajo del joistick;
+    if(event.target.matches(".joistick-down") || event.target.matches(".joistick-down *")){
+
+        let $pokedexTextScreenContent = document.querySelector(".screen-text-content");
+        let porcentaje = ($pokedexTextScreenContent.scrollHeight * 10) / 100;
+        $pokedexTextScreenContent.scrollTop = $pokedexTextScreenContent.scrollTop + porcentaje
+    }
+
+    if(event.target.matches(".joistick-up") ||event.target.matches(".joistick-up *")){
+        let $pokedexTextScreenContent = document.querySelector(".screen-text-content");
+        let porcentaje = ($pokedexTextScreenContent.scrollHeight * 10) / 100;
+        $pokedexTextScreenContent.scrollTop = $pokedexTextScreenContent.scrollTop - porcentaje
+    }
+    
+
+})
 
 
 
+// funciones generales
 async function listarPokemons (url){
     //realizamos la peticion ajax con el manejo de errores
     try {
@@ -127,123 +237,17 @@ async function busquedaPokemon(url){
 
 }
 
-
-document.addEventListener("DOMContentLoaded", listarPokemons("https://pokeapi.co/api/v2/pokemon/"));
-
-
-
-document.addEventListener("submit", (event)=>{
-
-    event.preventDefault();
-
-if(event.target.matches(".header-form") && $searchForm.find.value != ""){
-    
-    console.log($searchForm.find.value)
-    busquedaPokemon(`https://pokeapi.co/api/v2/pokemon/${$searchForm.find.value}`)
-
-}
-
-})
-
-
-
-document.addEventListener("click", (event)=> {
-    
-
-    // si se clickea la imagen de un pokemon de la lista
-   if(event.target.matches(".pokemon-link img") || event.target.matches(".pokemon-link")){
-
-       event.preventDefault();   
-
-       let figure = event.target.closest("figure");  
-       let url = figure.querySelector(".pokemon-link").getAttribute("href");
-       let imgUrl = figure.querySelector("img").getAttribute("src");
-       let name = figure.querySelector(".list-card-footer").firstElementChild.textContent;
-       let id = figure.querySelector(".list-card-footer").lastElementChild.textContent;
-
-       let $template = `
-
-       <h2>${name}</h2>
-       <img src="${imgUrl}">
-       <a class="pokedex-link" href="${url}">Ver Pokedex</a>
-       `;
-
-       $pokemonCard.innerHTML = $template;
-
-   }
-
-
-   // si se clickea los botones de prev y next de la lista de pokemons
-   if(event.target.matches(".link-previous") || event.target.matches(".link-next") ){
-
-       event.preventDefault();   
-  
-       listarPokemons(event.target.getAttribute("href"))
-  
-   }
-
-   // si se busca un pokemon en el buscador
-
-    // si se clickean el enlace para ver la pokedex
-    if(event.target.matches(".pokedex-link")){
-
-        event.preventDefault();
-
-        pokedex(event.target.getAttribute("href"))
-
-    }
-
-    // si se clickean los enlaces para ver los siguientes pokemon de la pokedex
-    if(event.target.matches(".pokedex-previous") || event.target.matches(".pokedex-next") ){
-
-        event.preventDefault();
-
-        pokedex(event.target.getAttribute("href"))
-
-    }
-
-    //si se clickean los botones de izquierda y derecha del joistick
-    if(event.target.matches(".joistick-left *") || event.target.matches(".joistick-right *") || event.target.matches(".joistick-right ") || event.target.matches(".joistick-left")){
-        event.preventDefault();
-
-        if(event.target.tagName = "I"){
-            pokedex(event.target.closest("a").getAttribute("href"))
-        }else{
-            pokedex(event.target.getAttribute("href"))
-        }
-
-    }
-
-    //si se clickean los botones arriba y abajo del joistick;
-    if(event.target.matches(".joistick-down") || event.target.matches(".joistick-down *")){
-
-        let $pokedexTextScreenContent = document.querySelector(".screen-text-content");
-        let porcentaje = ($pokedexTextScreenContent.scrollHeight * 10) / 100;
-        $pokedexTextScreenContent.scrollTop = $pokedexTextScreenContent.scrollTop + porcentaje
-    }
-
-    if(event.target.matches(".joistick-up") ||event.target.matches(".joistick-up *")){
-        let $pokedexTextScreenContent = document.querySelector(".screen-text-content");
-        let porcentaje = ($pokedexTextScreenContent.scrollHeight * 10) / 100;
-        $pokedexTextScreenContent.scrollTop = $pokedexTextScreenContent.scrollTop - porcentaje
-    }
-    
-
-})
-
-
-
-
-
-
 async function pokedex (url){
 
     try {
 
         $body.innerHTML = `
         <div class="pokedex">
-        <div class="pokedex-header">
 
+        <div class = "poke-header">
+        
+        
+        <div class="pokedex-header">
             <div class="eye">
                 <div class="eye-center">
                     <div class="white-circle1"></div>
@@ -253,6 +257,14 @@ async function pokedex (url){
             <div class="red-circle"></div>
             <div class="yellow-circle"></div>
             <div class="green-circle"></div>
+        </div>
+
+        
+            <form class="pokedex-form " action="">
+                <input type="text" name="find" placeholder="Nombre...">
+                <input class="submit-button" type="submit">
+            </form>
+        
         </div>
 
         <div class="pokedex-body">
@@ -416,5 +428,132 @@ async function pokedex (url){
         console.log(`ocurrio un error: ${error.status}, ${error.statusText}`);
     }
 
+
+}
+
+async function busquedaPokemonPokedex(url){
+
+    $pokedexScreen = document.querySelector(".screen"),
+    $pokedexTextScreen = document.querySelector(".text-screen"),
+    $pokedexGreenScreen = document.querySelector(".green-screen"),
+    $pokedexLinkPrevious = document.querySelector(".pokedex-previous"),
+    $pokedexLinkNext = document.querySelector(".pokedex-next"),
+    $pokedexScreen.innerHTML=`<img class="pokedex-loader" src="loader.svg" alt="Cargando...">`;
+    $pokedexTextScreen.innerHTML=`<img class="pokedex-loader" src="loader.svg" alt="Cargando...">`;
+    $joistickLeft = document.querySelector(".joistick-left");
+    $joistickRight = document.querySelector(".joistick-right");
+
+    let $statsTemplate = "",
+    $tipesTemplate= "",
+    $abilitiesTemplate = "";
+
+    $pokedexScreen.innerHTML = `<img class="loader" src="loader.svg" alt="Cargando...">`
+    $pokedexTextScreen.innerHTML = `<img class="loader" src="loader.svg" alt="Cargando...">`
+
+    try {
+        let $template = "";
+        let resultado = await fetch(url);
+        let pokemon = await resultado.json();
+
+        if(!resultado.ok) throw {status: resultado.status, statusText: resultado.statusText}
+
+
+        for(i = 0; i < pokemon.stats.length; i++){
+
+            $statsTemplate += `
+                <p>${pokemon.stats[i].stat.name}: ${pokemon.stats[i].base_stat} </p>
+            `;
+
+        }
+
+        for(i = 0; i < pokemon.types.length; i++){
+
+            $tipesTemplate += `
+                <p>${pokemon.types[i].type.name}</p>
+            `;
+
+        }
+
+        for(i = 0; i < pokemon.abilities.length; i++){
+
+            $abilitiesTemplate += `
+                <p>${pokemon.abilities[i].ability.name}</p>
+            `;
+
+        }
+
+        $pokedexScreen.innerHTML = `<img src="${pokemon.sprites.front_default}">`
+
+        $pokedexTextScreen.innerHTML = `
+                <div class="screen-text-content"> 
+                    <div class="description">
+                        <h1 class="nombre">${pokemon.name}</h1>
+                        <div>
+                            <p class="id">Pokemon N°${pokemon.id}</p>
+                            <p class="weight">Weight: ${pokemon.weight} Kg </p>
+                            <p class="experience">Experience: ${pokemon.base_experience} </p>
+                        </div>
+                    </div>
+
+                    <div class="types">
+                        <h2>Types</h2>
+                        <div>
+                            ${$tipesTemplate}
+                        </div>   
+                    </div>
+
+                    <div class="stats">
+                        <h2>Stats</h2>
+                        <div>
+                            ${$statsTemplate}
+                        </div>
+                        
+                    </div>
+
+                    <div class="abilities">
+                        <h2>Abilities</h2>
+                        <div>
+                            ${$abilitiesTemplate}
+                        </div>
+                        
+                    </div>
+                </div>
+                                                      
+        `;
+
+        $pokedexGreenScreen.innerHTML = `<p>N° ${pokemon.id}</p>`
+
+
+        if(pokemon.id == 1){
+            $pokedexLinkPrevious.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
+            $joistickLeft.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
+        }else{
+            $pokedexLinkPrevious.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id - 1}`;
+            $joistickLeft.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id - 1}`;
+        }
+
+        if(pokemon.id == 1098){
+            $pokedexLinkNext.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
+            $joistickRight.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id}`;
+        }else{
+            $pokedexLinkNext.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id + 1}`;
+            $joistickRight.href = `https://pokeapi.co/api/v2/pokemon/${pokemon.id + 1}`;
+        }
+        
+
+        
+    } catch (error) {
+        
+        $pokedexScreen.innerHTML = ` <div class="pokedex-not-found">
+                                        <p>El pokemon no ha sido encontrado</p>
+                                        <a href="index.html">Ver lista</a>
+                                    </div>`;
+
+        $pokedexTextScreen.innerHTML = ` <div class="pokedex-not-found">
+                                            <p>El pokemon no ha sido encontrado</p>
+                                            <a href="index.html">Ver lista</a>
+                                        </div>`;
+
+    }
 
 }

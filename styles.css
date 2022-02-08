@@ -57,7 +57,7 @@ html{
     width: 40rem;
 }
 
-.not-found{
+.not-found, .pokedex-not-found{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,9 +66,27 @@ html{
     height: 100%;
 }
 
+.pokedex-not-found p{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
 .not-found p{
     color: black;
     font-size: 3rem;
+}
+
+.pokedex-not-found a{
+    background-color: white;
+    color: rgb(1, 1, 26);
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    text-decoration: none;
+    border: 1px solid white;
+    width: 150px;
+    text-align: center;
+    margin-top: 2rem;
 }
 
 .not-found a{
@@ -82,6 +100,8 @@ html{
     text-align: center;
     margin-top: 2rem;
 }
+
+
 
 .pokemons{
     height: 90%;
@@ -173,13 +193,28 @@ html{
     width: 100%;
 }
 
+.poke-header{
+    min-height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    margin: 0 10%;
+    width: 80vw;
+    gap: 8rem;
+}
+
 .pokedex-header{
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    width: 30rem;
     gap: 1rem;
-    height: 20vh;
-    margin: 0 12%;
+    
+}
+
+.pokedex-form{
+    width: 30rem;
 }
 
 .eye{
@@ -520,6 +555,13 @@ html{
 @media(max-width:1274px){
 
     /* POKEDEX STYLES */
+
+    .poke-header{
+        gap: 2rem;
+        padding: 3rem 0 2rem 0;
+    }
+
+  
 
     .pokedex-body{
         gap: 1rem;
