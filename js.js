@@ -120,6 +120,7 @@ async function busquedaPokemon(url){
         
         $list.innerHTML = ` <div class="not-found">
                                 <p>El pokemon no ha sido encontrado</p>
+                                <a href="index.html">Ver lista</a>
                             </div>`;
 
     }
