@@ -18,14 +18,14 @@ document.addEventListener("submit", (event)=>{
 if(event.target.matches(".header-form") && $searchForm.find.value != ""){
     
     console.log($searchForm.find.value)
-    busquedaPokemon(`https://pokeapi.co/api/v2/pokemon/${$searchForm.find.value}`)
+    busquedaPokemon(`https://pokeapi.co/api/v2/pokemon/${$searchForm.find.value.toLowerCase()}`)
 
 }
 
 if(event.target.matches(".pokedex-form") && document.querySelector(".pokedex-form").find.value != ""){
     let $pokedexForm = document.querySelector(".pokedex-form");
     
-    busquedaPokemonPokedex(`https://pokeapi.co/api/v2/pokemon/${$pokedexForm.find.value}`)
+    busquedaPokemonPokedex(`https://pokeapi.co/api/v2/pokemon/${$pokedexForm.find.value.toLowerCase()}`)
 
 }
 
